@@ -1,24 +1,36 @@
-class TituloDinamico extends HTMLElement {
-  constructor() {
-    //primeira coisa a ser execultada
-    super(); //chamndo o construtor do HTMLElemnt
+//maneira profissional de fazer
 
-    const shadow = this.attachShadow({ mode: "open" });
+class Cardnews extends HTMLElement{
+    // execultado primeiro
+    constructor(){
+        super()
 
-    //base do component <h1>Gisele</h1>
-    const componentRoot = document.createElement("h1");
-    componentRoot.textContent = this.getAttribute("titulo");
-
-    //estilização do component
-    const style = document.createElement("style");
-    style.textContent = `
-    h1{
-    color: red
+        const shadow = this.attachShadow({mode: "open"})
+        //ser submisso na e herarquia/ invoca o resultado do build
+        shadow.appendChild(this.build())
+        shadow.appendChild(this.styles)
     }
-    `;
-    //enviar para o shadow
-    shadow.appendChild(componentRoot);
-    shadow.appendChild(style);
-  }
+    //contruir os elemntos que serão rederizado
+    build(){
+        // div maior
+        const componentRoot = document.createElement("div")
+        componentRoot.setAttribute("class", "card")
+        //div que serão manipulados oela div maior
+
+        const cardLeft = document.createElement("div")
+        cardLeft.setAttribute("class", "card__Left")
+
+        const cardRight = document.createElement("div")
+        cardRight.setAttribute("class", "card__right")
+        
+        //fazendo as ligaçoes das divs menores para ser manipulada pea div maior
+        componentRoot.appendChild(cardLeft)
+        componentRoot.appendChild(cardRight)
+        return componentRoot
+    }
+    //vai aplicar os estilos
+    styles(){
+
+    }
 }
-customElements.define("titulo-dinamico", TituloDinamico); //como ele vai se chamar/ o - é necessario para diferenciar das tag padrão
+customElements.define("card-new", Cardnews)
